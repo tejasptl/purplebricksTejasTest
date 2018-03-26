@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PriceXMLHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +107,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PurpleBricksTejas.CodeLibrary\PurpleBricksTejas.CodeLibrary.csproj">
+      <Project>{5D5133DC-7EF0-4AFC-9C22-3F4F8371A2EC}</Project>
+      <Name>PurpleBricksTejas.CodeLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PurpleBricksTejas\PurpleBricksTejas.csproj">
       <Project>{01C88F23-74DD-45D2-B98D-3FC29CFCEFEF}</Project>
       <Name>PurpleBricksTejas</Name>

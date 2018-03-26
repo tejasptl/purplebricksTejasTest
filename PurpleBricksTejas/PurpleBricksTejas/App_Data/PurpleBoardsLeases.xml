@@ -1,60 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PurpleBoardRecords>
   <PurpleBoardPrices>
-    <Price>
+    <PriceRecord>
       <State>VIC</State>
       <Size>Small</Size>
       <Price>20</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>VIC</State>
       <Size>Large</Size>
       <Price>30</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>NSW</State>
       <Size>Small</Size>
       <Price>50</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>NSW</State>
       <Size>Large</Size>
       <Price>60</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>TAS</State>
       <Size>Small</Size>
       <Price>15</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>TAS</State>
       <Size>Large</Size>
       <Price>20</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>WA</State>
       <Size>Small</Size>
       <Price>20</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>WA</State>
       <Size>Large</Size>
       <Price>30</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>NT</State>
       <Size>Small</Size>
       <Price>20</Price>
-    </Price>
-    <Price>
+    </PriceRecord>
+    <PriceRecord>
       <State>NT</State>
       <Size>Large</Size>
       <Price>30</Price>
-    </Price>
+    </PriceRecord>
   </PurpleBoardPrices>
   <PurpleBoardDiscount>
-    <DaysOrder>10</DaysOrder>
-    <NSW>15</NSW>
-    <Other>10</Other>
+    <DiscountRecords>
+      <DaysOrder>10</DaysOrder>
+      <State>NSW</State>
+      <Discount>15</Discount>
+    </DiscountRecords>
+    <DiscountRecords>
+      <DaysOrder>10</DaysOrder>
+      <State>VIC</State>
+      <Discount>10</Discount>
+    </DiscountRecords>
+    <DiscountRecords>
+      <DaysOrder>10</DaysOrder>
+      <State>TAS</State>
+      <Discount>10</Discount>
+    </DiscountRecords>
+    <DiscountRecords>
+      <DaysOrder>10</DaysOrder>
+      <State>WA</State>
+      <Discount>10</Discount>
+    </DiscountRecords>
+    <DiscountRecords>
+      <DaysOrder>10</DaysOrder>
+      <State>NT</State>
+      <Discount>10</Discount>
+    </DiscountRecords>   
   </PurpleBoardDiscount>
 </PurpleBoardRecords>
