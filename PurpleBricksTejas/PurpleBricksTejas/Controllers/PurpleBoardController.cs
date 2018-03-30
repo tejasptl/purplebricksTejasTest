@@ -20,17 +20,9 @@ namespace PurpleBricksTejas.Controllers
         [AllowAnonymous]
         public ActionResult BoardPriceEstimator()
         {
-            PurpleBoardLeaseModel model = new PurpleBoardLeaseModel();            
-
+            PurpleBoardLeaseModel model = new PurpleBoardLeaseModel();           
             return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult BoardPriceEstimator(PurpleBoardLeaseModel model)
-        {                    
-            return View(model);
-        }
+        }      
 
         [AllowAnonymous]
         public JsonResult GetBoardPrice(string boardSize, string propertyState, string fromDate, string toDate)
