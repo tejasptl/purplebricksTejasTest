@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,8 +30,8 @@ namespace PurpleBricksTejas.Controllers
 
             model.BoardSize = boardSize;
             model.Property.State = propertyState;
-            model.FromDate = Convert.ToDateTime(fromDate);
-            model.ToDate = Convert.ToDateTime(toDate);
+            model.FromDate = Convert.ToDateTime(fromDate, CultureInfo.InvariantCulture);
+            model.ToDate = Convert.ToDateTime(toDate, CultureInfo.InvariantCulture);
 
             model.CalculateBoardCost();            
 
