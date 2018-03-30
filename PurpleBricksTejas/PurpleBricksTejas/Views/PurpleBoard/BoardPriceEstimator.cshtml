@@ -6,9 +6,10 @@
 }
 <div class="container">
     <br />
-    <h2>Price Estimator</h2>
-    <br />
+    <h2>Price Estimator</h2>    
     <form id="formBoardPrice" action="">
+        <div id="divError" style="display:none;" class="maxFormWidth"></div>
+        <br/>
         <table id="tblBoardEstimateDetails" class="table" style="max-width:500px;">
             <tr>
                 <td class="control-label">
@@ -16,8 +17,8 @@
                 </td>
                 <td>
                     @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadBoardSize(), "Value", "Text",
-                                            Model.BoardSize), "--Select Board Size--"
-                                            , new { @class = "form-control", @id = "ddlBoardSize", @style = "max-width:300px;" })
+                                Model.BoardSize), "--Select Board Size--"
+                                , new { @class = "form-control maxInputWidth", @id = "ddlBoardSize" })
                 </td>
             </tr>
             <tr>
@@ -26,8 +27,8 @@
                 </td>
                 <td>
                     @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadState(), "Value", "Text",
-                                            Model.Property.State), "--Select State--"
-                                            , new { @class = "form-control", @id = "ddlState", @style = "max-width:300px;" })
+                                Model.Property.State), "--Select State--"
+                                , new { @class = "form-control maxInputWidth", @id = "ddlState" })
                 </td>
             </tr>
             <tr>
@@ -36,12 +37,11 @@
                 </td>
                 <td>
                     @Html.TextBoxFor(x => x.FromDate, htmlAttributes: new
-                    {
-                        @class = "form-control date-pick",
-                        @id = "txtFromDate",
-                        @style = "max-width:300px;",
-                        @placeholder = "Select From Date"
-                    })
+            {
+                @class = "form-control maxInputWidth date-pick",
+                @id = "txtFromDate",
+                @placeholder = "Select From Date"
+            })
                 </td>
             </tr>
             <tr>
@@ -50,27 +50,54 @@
                 </td>
                 <td>
                     @Html.TextBoxFor(x => x.ToDate, htmlAttributes: new
-                   {
-                        @class = "form-control date-pick",
-                        @id = "txtToDate",
-                        @style = "max-width:300px;",
-                        @placeholder = "Select To Date"
-                   })
+            {
+                @class = "form-control maxInputWidth date-pick",
+                @id = "txtToDate",
+                @placeholder = "Select To Date"
+            })
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                     <a href="javascript:;" class="btn btn-primary" onclick="return submitBoardDetails();" title="Submit">
-                        Submit </a>
+                        Submit
+                    </a>
                     <a href="javascript:;" class="btn btn-secondary" onclick="return clearAll();" title="Submit">
-                        Clear </a>
+                        Clear
+                    </a>
                 </td>
             </tr>
-            <tr id="trCost" class="table-success" style="display : none">
-                <td>Cost:</td>
+            <tr class="trCostEstimate table-success" style="display : none">
                 <td>
-                    $ <span id="spCost"></span>
+                    Price Per Day: 
+                </td>
+                <td>
+                    $<span id="spPricePerDay"></span>
+                </td>
+            </tr>
+            <tr class="trCostEstimate table-success" style="display : none">
+                <td>
+                    No Of Days:
+                </td>
+                <td>
+                    <span id="spDaysOrder"></span>
+                </td>
+            </tr>
+            <tr class="trCostEstimate table-success" style="display : none">
+                <td>
+                    Discount: 
+                </td>
+                <td>
+                    <span id="spDiscount"></span>%
+                </td>
+            </tr>
+            <tr class="trCostEstimate table-success" style="display : none">
+                <td>
+                    Total Cost:
+                </td>
+                <td>
+                    $<span id="spCost"></span>
                 </td>
             </tr>
         </table>
@@ -92,39 +119,69 @@
 
     });
 
-    function submitBoardDetails() {
+    function validateDetails() {
 
-        var data = this;
-        data.boardSize = $('#ddlBoardSize').val();
-        data.propertyState = $('#ddlState').val();
-        data.fromDate = $('#txtFromDate').val();
-        data.toDate = $('#txtToDate').val();
+        var boardSize = $('#ddlBoardSize').val() || '';
+        var propertyState = $('#ddlState').val() || '';
+        var fromDate = $('#txtFromDate').val() || '';
+        var toDate = $('#txtToDate').val() || '';
+        var errorMessage = '';
 
-        var paramData = {
-            boardSize: data.boardSize,
-            propertyState: data.propertyState,
-            fromDate: data.fromDate,
-            toDate: data.toDate
+        if (boardSize == '') {
+            errorMessage += '<li class="list-group-item list-group-item-danger">Please select board size.</li>';
+        }
+        if (propertyState == '') {
+            errorMessage += '<li class="list-group-item list-group-item-danger">Please select property state.</li>';
+        }
+        if (fromDate == '') {
+            errorMessage += '<li class="list-group-item list-group-item-danger">Please select date from.</li>';
+        }
+        if (toDate == '') {
+            errorMessage += '<li class="list-group-item list-group-item-danger">Please select date to.</li>';
         }
 
-        $.ajax({
-            url: '@Url.Action("GetBoardPrice", "PurpleBoard")',
-            type: 'GET',
-            dataType: 'json',
-            cache: false,
-            data: paramData,
-            success: function (response) {
-                var result = JSON.parse(response);
+        if (errorMessage != '') {
+            ShowErrorMessage(errorMessage);
+            return false;
+        }
+        return true;
+    }
 
-                $('#trCost').show();
-                $('#spCost').text(result.Cost);
+    function submitBoardDetails() {
 
-                //if (g.isTaxInclusive)
-                //    $("#isTaxInclusive").prop("checked", "checked");
-                //else
-                    //$("#isTaxInclusive").removeAttr("checked");
+        if (validateDetails()) {
+            var data = this;
+            data.boardSize = $('#ddlBoardSize').val();
+            data.propertyState = $('#ddlState').val();
+            data.fromDate = $('#txtFromDate').val();
+            data.toDate = $('#txtToDate').val();
+
+            var paramData = {
+                boardSize: data.boardSize,
+                propertyState: data.propertyState,
+                fromDate: data.fromDate,
+                toDate: data.toDate
             }
-        });
+
+            $.ajax({
+                url: '@Url.Action("GetBoardPrice", "PurpleBoard")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: paramData,
+                success: function (response) {
+                    var result = JSON.parse(response);
+
+                    $('.trCostEstimate').show();
+                    $('#spPricePerDay').text(result.PricePerDay);
+                    $('#spDaysOrder').text(result.DaysOrder);
+                    $('#spDiscount').text(result.Discount);
+                    $('#spCost').text(result.Cost);                    
+
+                    $('#divError').hide();                                       
+                }
+            });
+        }
     }
 
     function clearAll() {
@@ -133,7 +190,8 @@
         $('#txtFromDate').val('');
         $('#txtToDate').val('');
 
-        $('#trCost').hide();
+        $('.trCostEstimate').hide();
+        $('#divError').hide();
     }
 
 </script>

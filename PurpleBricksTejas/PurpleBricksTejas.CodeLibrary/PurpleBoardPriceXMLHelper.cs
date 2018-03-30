@@ -60,10 +60,10 @@ namespace PurpleBricksTejas.CodeLibrary
         /// <param name="state"></param>
         /// <param name="daysOrder"></param>
         /// <returns></returns>
-        private static double GetDiscountRate(XDocument xDoc, string state, int daysOrder)
+        public static double GetDiscountRate(XDocument xDoc, string state, int daysOrder)
         {           
             return xDoc.Descendants("DiscountRecords")
-                                .Where(r => daysOrder >= Convert.ToInt32(r.Element("DaysOrder").Value)
+                                .Where(r => daysOrder > Convert.ToInt32(r.Element("DaysOrder").Value)
                                         && state == r.Element("State").Value)
                                     .Select(r => Convert.ToDouble(r.Element("Discount").Value)).FirstOrDefault();
         }     

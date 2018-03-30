@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PurpleBricksTejas.CodeLibrary;
 using PurpleBricksTejas.Models;
 
 namespace PurpleBricksTejas.Controllers
@@ -31,9 +32,11 @@ namespace PurpleBricksTejas.Controllers
             model.FromDate = Convert.ToDateTime(fromDate);
             model.ToDate = Convert.ToDateTime(toDate);
 
-            model.CalculateBoardPrice();
-           
-            return Json("{\"Cost\": " + model.Cost + "}", "application/json", JsonRequestBehavior.AllowGet);           
+            model.CalculateBoardCost();            
+
+            return Json("{\"Cost\": " + Math.Round(model.Cost, 2, MidpointRounding.AwayFromZero) + ",\"PricePerDay\": " + Utils.FormatMoney(model.PricePerDay)
+                            + ",\"DaysOrder\": " + model.DaysOrder + ",\"Discount\": " + Utils.FormatMoney(model.Discount) + "}"
+                            , "application/json", JsonRequestBehavior.AllowGet);           
         }
 
 

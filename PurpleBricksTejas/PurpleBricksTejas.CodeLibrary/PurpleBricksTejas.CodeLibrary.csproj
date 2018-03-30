@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Utils.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="PurpleBoardPriceXMLHelper.cs" />

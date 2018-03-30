@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/themes/base/minified/jquery-ui.min.css")
+    @Styles.Render("~/Content/Common.css")
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap-reboot.min.css")
     @Styles.Render("~/Content/bootstrap-grid.min.css")
@@ -26,7 +27,7 @@
                                 <a class="nav-link" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Price Estimator</a>
+                                <a class="nav-link" href="@Url.Action("BoardPriceEstimator","PurpleBoard")">Price Estimator</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Support</a>
@@ -46,7 +47,8 @@
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/Scripts/jquery-ui-1.8.20.min.js")    
+    @Scripts.Render("~/Scripts/Common.js")
+    @Scripts.Render("~/Scripts/jquery-ui-1.8.20.min.js")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     @Scripts.Render("~/bundles/bootstrap.min.js")
     @RenderSection("scripts", required: false)
