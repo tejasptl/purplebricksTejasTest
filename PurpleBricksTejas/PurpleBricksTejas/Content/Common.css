@@ -1,0 +1,10 @@
+﻿body {
+}
+.maxFormWidth
+{
+    max-width: 500px;
+}
+
+.maxInputWidth {
+    max-width: 300px;
+}
