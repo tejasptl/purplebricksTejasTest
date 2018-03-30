@@ -8,10 +8,7 @@ using PurpleBricksTejas.Models;
 namespace PurpleBricksTejas.Controllers
 {
     public class PurpleBoardController : Controller
-    {
-        //
-        // GET: /PurpleBoard/       
-
+    {    
         public ActionResult Index()
         {
             return View();

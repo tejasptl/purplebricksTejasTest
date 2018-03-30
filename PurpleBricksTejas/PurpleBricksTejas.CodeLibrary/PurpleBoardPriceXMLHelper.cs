@@ -24,20 +24,33 @@ namespace PurpleBricksTejas.CodeLibrary
         /// <returns></returns>
         public static double GetPriceByFilter(XDocument xDoc, string state, string boardSize, int daysOrder)
         {
-            double finalPrice = 0;
-            double price = xDoc.Descendants("PriceRecord")
-                            .Where(r => r.Element("State").Value == state 
-                                    && r.Element("Size").Value == boardSize)
-                            .Select(r => Convert.ToDouble(r.Element("Price").Value)).FirstOrDefault();
+            try
+            {
+                if (xDoc == null || String.IsNullOrWhiteSpace(state)
+                    || String.IsNullOrWhiteSpace(boardSize))
+                {
+                    throw new ApplicationException("All manadtory fields should be provided.");
+                }
 
-            double discountRate = GetDiscountRate(xDoc, state, daysOrder);
+                double finalPrice = 0;
+                double price = xDoc.Descendants("PriceRecord")
+                                .Where(r => r.Element("State").Value == state
+                                        && r.Element("Size").Value == boardSize)
+                                .Select(r => Convert.ToDouble(r.Element("Price").Value)).FirstOrDefault();
 
-            if (discountRate > 0)
-                finalPrice = price - ((price * discountRate) / 100);
-            else
-                finalPrice = price;
+                double discountRate = GetDiscountRate(xDoc, state, daysOrder);
 
-            return finalPrice;
+                if (discountRate > 0)
+                    finalPrice = price - ((price * discountRate) / 100);
+                else
+                    finalPrice = price;
+
+                return finalPrice;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }
         }
 
         /// <summary>

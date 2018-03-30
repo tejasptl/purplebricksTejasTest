@@ -11,7 +11,9 @@
     <form id="formBoardPrice" action="">
         <table id="tblBoardEstimateDetails" class="table" style="max-width:500px;">
             <tr>
-                <td class="control-label">Board Size</td>
+                <td class="control-label">
+                    @Html.LabelFor(x => x.BoardSize, htmlAttributes: new { @class = "control-label" })
+                </td>
                 <td>
                     @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadBoardSize(), "Value", "Text",
                                             Model.BoardSize), "--Select Board Size--"
@@ -19,7 +21,9 @@
                 </td>
             </tr>
             <tr>
-                <td>Property State:</td>
+                <td>
+                    @Html.LabelFor(x => x.Property.State, htmlAttributes: new { @class = "control-label" })
+                </td>
                 <td>
                     @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadState(), "Value", "Text",
                                             Model.Property.State), "--Select State--"
@@ -27,7 +31,9 @@
                 </td>
             </tr>
             <tr>
-                <td>Date From:</td>
+                <td>
+                    @Html.LabelFor(x => x.FromDate, htmlAttributes: new { @class = "control-label" })
+                </td>
                 <td>
                     @Html.TextBoxFor(x => x.FromDate, htmlAttributes: new
                     {
@@ -39,7 +45,9 @@
                 </td>
             </tr>
             <tr>
-                <td>Date To:</td>
+                <td>
+                    @Html.LabelFor(x => x.ToDate, htmlAttributes: new { @class = "control-label" })
+                </td>
                 <td>
                     @Html.TextBoxFor(x => x.ToDate, htmlAttributes: new
                    {
