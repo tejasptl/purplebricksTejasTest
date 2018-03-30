@@ -1,0 +1,84 @@
+﻿@using PurpleBricksTejas.Models;
+@model PurpleBoardLeaseModel
+@{
+                /**/
+
+                ViewBag.Title = "BoardPriceEstimator";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Board Price Estimator</h2>
+<form id="formBoardPrice" action="">
+    <table id="tblBoardEstimateDetails">
+        <tr>
+            <td>Board Size</td>
+            <td>
+                @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadBoardSize(), "Value", "Text",
+                                 Model.BoardSize), "--Select Board Size --", new { @class = "form-control", @id = "ddlBoardSize" })
+            </td>
+        </tr>
+        <tr>
+            <td>Property State:</td>
+            <td>
+                @Html.DropDownListFor(x => x.BoardSize, new SelectList(Model.LoadState(), "Value", "Text",
+                                  Model.Property.State), "--Select Board Size --", new { @class = "form-control", @id = "ddlState" })
+            </td>
+        </tr>
+        <tr>
+            <td>Date From:</td>
+            <td>
+                @Html.TextBoxFor(x => x.FromDate, "{0:dd/MM/yy}", htmlAttributes: new { @class = "form-control date-pick", @id = "txtFromDate" })
+            </td>
+        </tr>
+        <tr>
+            <td>Date To:</td>
+            <td>
+                @Html.TextBoxFor(x => x.ToDate, "{0:dd/MM/yy}", htmlAttributes: new { @class = "form-control date-pick", @id = "txtToDate" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="javascript:;" onclick="return submitBoardDetails();" title="Submit">
+                    Submit
+                </a>
+            </td>
+        </tr>
+        <tr id="trCost" style="display : none">
+            <td>Cost:</td>
+            <td>
+                $ <span id="spCost"></span>
+            </td>
+        </tr>
+    </table>
+</form>
+    <script type="text/javascript">
+
+    function submitBoardDetails() {
+        var data = {
+            boardSize : $('#ddlBoardSize').val(),
+            propertyState : $('#ddlState').val(),
+            fromDate: $('#txtFromDate').val(),
+            toDate: $('#txtToDate').val()
+        }
+      
+        $.ajax({
+            url: '@Url.Action("GetBoardPrice", "PurpleBoard")',
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            data: data,
+            success: function (response) {
+                var result = JSON.parse(response);
+                
+                $('#trCost').show();
+                $('#spCost').text(result.Cost);
+                
+                //if (g.isTaxInclusive)
+                //    $("#isTaxInclusive").prop("checked", "checked");
+                //else
+                    //$("#isTaxInclusive").removeAttr("checked");
+            }
+        });
+
+    }
+    </script>
