@@ -12,7 +12,7 @@ namespace PurpleBricksTejas.CodeLibrary
     {
         public decimal BoardPrice { get; set; }
         public string State { get; set; }
-        public string BoardSize { get; set; }
+        public string BoardSize { get; set; }       
 
         /// <summary>
         /// This method returns discounted final price through XML file
