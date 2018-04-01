@@ -15,14 +15,32 @@ namespace PurpleBricksTejas.Tests
     public class BoardPriceXMLTest
     {
         [TestCase("VIC", "Small", 2, ExpectedResult = 20)]
-        [TestCase("VIC", "Small", 12, ExpectedResult = 18)]        
+        [TestCase("VIC", "Small", 12, ExpectedResult = 18)]
+        [TestCase("VIC", "Large", 2, ExpectedResult = 30)]
+        [TestCase("VIC", "Large", 12, ExpectedResult = 27)]
+        [TestCase("NSW", "Small", 2, ExpectedResult = 50)]
+        [TestCase("NSW", "Small", 12, ExpectedResult = 42.50)]
+        [TestCase("NSW", "Large", 2, ExpectedResult = 60)]
+        [TestCase("NSW", "Large", 12, ExpectedResult = 51)]                
         public double TestForGetBPriceByFilter(string state,string boardSize, int daysOrder)
         {
             PathProviderXML pathProvider = new PathProviderXML();           
             string xmlDocPath = pathProvider.GetPathForTest();
-
+       
             XDocument xDoc = XDocument.Load(xmlDocPath);            
             return PurpleBoardPriceXMLHelper.GetPriceByFilter(xDoc, state, boardSize, daysOrder);
+        }
+
+        [Test]
+        [TestCase("", "Large", 12)]
+        public void GetPriceWithoutState(string state, string boardSize, int daysOrder)
+        {
+            PathProviderXML pathProvider = new PathProviderXML();
+            string xmlDocPath = pathProvider.GetPathForTest();
+            XDocument xDoc = XDocument.Load(xmlDocPath);
+
+            Assert.That(() => PurpleBoardPriceXMLHelper.GetPriceByFilter(xDoc, state, boardSize, daysOrder),
+               Throws.TypeOf<ApplicationException>());            
         }
 
         [TestCase("VIC", 2, ExpectedResult = 0)]
@@ -37,8 +55,5 @@ namespace PurpleBricksTejas.Tests
             XDocument xDoc = XDocument.Load(xmlDocPath);
             return PurpleBoardPriceXMLHelper.GetDiscountRate(xDoc, state, daysOrder);
         }
-
-
-
     }
 }

@@ -12,7 +12,7 @@ namespace PurpleBricksTejas.CodeLibrary
     {
         public decimal BoardPrice { get; set; }
         public string State { get; set; }
-        public string BoardSize { get; set; }       
+        public string BoardSize { get; set; }
 
         /// <summary>
         /// This method returns discounted final price through XML file
@@ -24,33 +24,27 @@ namespace PurpleBricksTejas.CodeLibrary
         /// <returns></returns>
         public static double GetPriceByFilter(XDocument xDoc, string state, string boardSize, int daysOrder)
         {
-            try
+
+            if (xDoc == null || String.IsNullOrWhiteSpace(state)
+                || String.IsNullOrWhiteSpace(boardSize))
             {
-                if (xDoc == null || String.IsNullOrWhiteSpace(state)
-                    || String.IsNullOrWhiteSpace(boardSize))
-                {
-                    throw new ApplicationException("All manadtory fields should be provided.");
-                }
-
-                double finalPrice = 0;
-                double price = xDoc.Descendants("PriceRecord")
-                                .Where(r => r.Element("State").Value == state
-                                        && r.Element("Size").Value == boardSize)
-                                .Select(r => Convert.ToDouble(r.Element("Price").Value)).FirstOrDefault();
-
-                double discountRate = GetDiscountRate(xDoc, state, daysOrder);
-
-                if (discountRate > 0)
-                    finalPrice = price - ((price * discountRate) / 100);
-                else
-                    finalPrice = price;
-
-                return finalPrice;
+                throw new ApplicationException("All manadtory fields should be provided.");
             }
-            catch(Exception)
-            {
-                return 0;
-            }
+
+            double finalPrice = 0;
+            double price = xDoc.Descendants("PriceRecord")
+                            .Where(r => r.Element("State").Value == state
+                                    && r.Element("Size").Value == boardSize)
+                            .Select(r => Convert.ToDouble(r.Element("Price").Value)).FirstOrDefault();
+
+            double discountRate = GetDiscountRate(xDoc, state, daysOrder);
+
+            if (discountRate > 0)
+                finalPrice = price - ((price * discountRate) / 100);
+            else
+                finalPrice = price;
+
+            return finalPrice;
         }
 
         /// <summary>
