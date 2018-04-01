@@ -20,7 +20,6 @@ namespace PurpleBricksTejas.Tests
             return PurpleBoardPriceXMLHelper.GetPriceByFilter(xDoc, state, boardSize, daysOrder);
         }
 
-
         [TestCase("VIC", 2, ExpectedResult = 0)]
         [TestCase("VIC", 12, ExpectedResult = 10)]
         [TestCase("NSW", 2, ExpectedResult = 0)]
