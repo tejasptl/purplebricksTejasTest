@@ -63,6 +63,7 @@ namespace PurpleBricksTejas.Tests
         //
         #endregion
 
+            /*
         [TestMethod]
         public void GetPricefor_VIC_Small_WithDiscount()
         {
@@ -78,6 +79,7 @@ namespace PurpleBricksTejas.Tests
 
             Assert.AreEqual(expected, actual, "No Matching");
         }
+        */
     }
 }
 
