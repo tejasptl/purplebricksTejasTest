@@ -105,94 +105,53 @@
     </form>
 </div>
 @section Scripts {
+<script type="text/javascript" src="~/Scripts/BoardPriceEstimator.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         $.datepicker.setDefaults({
             dateFormat: 'dd/mm/yy'
+        });       
+        $('.date-pick').datepicker({           
         });
-
-        $('.date-pick').datepicker({
-            //format: 'dd/mm/yy'            
-        });
-
     });
-
-    function validateDetails() {
-
-        var boardSize = $('#ddlBoardSize').val() || '';
-        var propertyState = $('#ddlState').val() || '';
-        var fromDate = $('#txtFromDate').val() || '';
-        var toDate = $('#txtToDate').val() || '';
-        var errorMessage = '';
-
-        if (boardSize == '') {
-            errorMessage += '<li class="list-group-item list-group-item-danger">Please select board size.</li>';
-        }
-        if (propertyState == '') {
-            errorMessage += '<li class="list-group-item list-group-item-danger">Please select property state.</li>';
-        }
-        if (fromDate == '') {
-            errorMessage += '<li class="list-group-item list-group-item-danger">Please select date from.</li>';
-        }
-        if (toDate == '') {
-            errorMessage += '<li class="list-group-item list-group-item-danger">Please select date to.</li>';
-        }
-
-        if (errorMessage != '') {
-            ShowErrorMessage(errorMessage);
-            return false;
-        }
-        return true;
-    }
 
     function submitBoardDetails() {
 
-        if (validateDetails()) {
-            var data = this;
-            data.boardSize = $('#ddlBoardSize').val();
-            data.propertyState = $('#ddlState').val();
-            data.fromDate = $('#txtFromDate').val();
-            data.toDate = $('#txtToDate').val();
+    if (validateDetails()) {
+        var data = this;
+        data.boardSize = $('#ddlBoardSize').val();
+        data.propertyState = $('#ddlState').val();
+        data.fromDate = $('#txtFromDate').val();
+        data.toDate = $('#txtToDate').val();
 
-            var paramData = {
-                boardSize: data.boardSize,
-                propertyState: data.propertyState,
-                fromDate: data.fromDate,
-                toDate: data.toDate
-            }
-
-            $.ajax({
-                url: '@Url.Action("GetBoardPrice", "PurpleBoard")',
-                type: 'GET',
-                dataType: 'json',
-                cache: false,
-                data: paramData,
-                success: function (response) {
-                    var result = JSON.parse(response);
-
-                    $('.trCostEstimate').show();
-                    $('#spPricePerDay').text(result.PricePerDay);
-                    $('#spDaysOrder').text(result.DaysOrder);
-                    $('#spDiscount').text(result.Discount);
-                    $('#spCost').text(result.Cost);                    
-
-                    $('#divError').hide();                                       
-                }
-            });
+        var paramData = {
+            boardSize: data.boardSize,
+            propertyState: data.propertyState,
+            fromDate: data.fromDate,
+            toDate: data.toDate
         }
-    }
 
-    function clearAll() {
-        $('#ddlBoardSize').val('');
-        $('#ddlState').val('');
-        $('#txtFromDate').val('');
-        $('#txtToDate').val('');
+        $.ajax({
+            url: '@Url.Action("GetBoardPrice", "PurpleBoard")',
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            data: paramData,
+            success: function (response) {
+                var result = JSON.parse(response);
 
-        $('.trCostEstimate').hide();
-        $('#divError').hide();
+                $('.trCostEstimate').show();
+                $('#spPricePerDay').text(result.PricePerDay);
+                $('#spDaysOrder').text(result.DaysOrder);
+                $('#spDiscount').text(result.Discount);
+                $('#spCost').text(result.Cost);
+
+                $('#divError').hide();
+            }
+        });
     }
+}
 
 </script>
 }

@@ -30,8 +30,8 @@ namespace PurpleBricksTejas.Controllers
 
             model.BoardSize = boardSize;
             model.Property.State = propertyState;
-            model.FromDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);//  Convert.ToDateTime(fromDate, CultureInfo.InvariantCulture);
-            model.ToDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", CultureInfo.InvariantCulture); //Convert.ToDateTime(toDate, CultureInfo.InvariantCulture);
+            model.FromDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            model.ToDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
 
             model.CalculateBoardCost();            
 
@@ -39,7 +39,5 @@ namespace PurpleBricksTejas.Controllers
                             + ",\"DaysOrder\": " + model.DaysOrder + ",\"Discount\": " + Utils.FormatMoney(model.Discount) + "}"
                             , "application/json", JsonRequestBehavior.AllowGet);           
         }
-
-
     }
 }
