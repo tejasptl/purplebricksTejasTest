@@ -50,30 +50,12 @@ namespace PurpleBricksTejas.Models
 
         #endregion
 
+        #region Methods       
 
-        #region Methods
-
-        public List<SelectListItem> LoadBoardSize()
-        {
-            List<SelectListItem> list = new List<SelectListItem>();            
-            list.Add(new SelectListItem() { Text = "Small", Value = "Small" });
-            list.Add(new SelectListItem() { Text = "Large", Value = "Large" });
-            return list;
-        }
-
-        public List<SelectListItem> LoadState()
-        {
-            List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem() { Text = "NSW", Value = "NSW" });
-            list.Add(new SelectListItem() { Text = "NT", Value = "NT" });
-            list.Add(new SelectListItem() { Text = "QLD", Value = "QLD" });            
-            list.Add(new SelectListItem() { Text = "SA", Value = "SA" });
-            list.Add(new SelectListItem() { Text = "TAS", Value = "TAS" });
-            list.Add(new SelectListItem() { Text = "VIC", Value = "VIC" });
-            list.Add(new SelectListItem() { Text = "WA", Value = "WA" });
-            return list;
-        }
-
+        /// <summary>
+        /// This method is used calculate board cost depends on the properties values of this class        
+        /// </summary>
+        /// <returns></returns>
         public double CalculateBoardCost()
         {
             try
@@ -97,15 +79,11 @@ namespace PurpleBricksTejas.Models
             }
             catch(Exception)
             {
+                // We can log exception in database or somewhere to further assessment                
                 return 0;
             }
         }
 
         #endregion
-
-
-
-
-
     }
 }

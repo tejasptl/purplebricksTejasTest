@@ -22,7 +22,7 @@ namespace PurpleBricksTejas.Tests
         [TestCase("NSW", "Small", 12, ExpectedResult = 42.50)]
         [TestCase("NSW", "Large", 2, ExpectedResult = 60)]
         [TestCase("NSW", "Large", 12, ExpectedResult = 51)]                
-        public double TestForGetBPriceByFilter(string state,string boardSize, int daysOrder)
+        public double TestForGetPriceByFilter(string state,string boardSize, int daysOrder)
         {
             PathProviderXML pathProvider = new PathProviderXML();           
             string xmlDocPath = pathProvider.GetPathForTest();
@@ -33,7 +33,8 @@ namespace PurpleBricksTejas.Tests
 
         [Test]
         [TestCase("", "Large", 12)]
-        public void GetPriceWithoutState(string state, string boardSize, int daysOrder)
+        [TestCase("VIC", "", 12)]        
+        public void GetPriceWithoutSomeFilters(string state, string boardSize, int daysOrder)
         {
             PathProviderXML pathProvider = new PathProviderXML();
             string xmlDocPath = pathProvider.GetPathForTest();

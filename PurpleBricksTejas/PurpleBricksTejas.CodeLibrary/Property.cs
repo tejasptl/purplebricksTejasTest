@@ -27,7 +27,6 @@ namespace PurpleBricksTejas.CodeLibrary
 
         #endregion
 
-
         #region Constructors
 
         public Property()
@@ -45,7 +44,6 @@ namespace PurpleBricksTejas.CodeLibrary
         }
 
         #endregion
-
 
         #region Methods
 

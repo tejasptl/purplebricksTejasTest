@@ -27,7 +27,6 @@ namespace PurpleBricksTejas.CodeLibrary
 
         #endregion
 
-
         #region Constructor
 
         public Customer()
@@ -45,7 +44,6 @@ namespace PurpleBricksTejas.CodeLibrary
         }
 
         #endregion
-
 
         #region Methods
 

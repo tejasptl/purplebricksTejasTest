@@ -1,4 +1,5 @@
-﻿function validateDetails() {
+﻿// This function is used to validate inputs from Board price estimator page.
+function validateDetails() {
 
     var boardSize = $('#ddlBoardSize').val() || '';
     var propertyState = $('#ddlState').val() || '';
@@ -38,6 +39,7 @@
     return true;
 }
 
+// This function is used to rest all input fields
 function clearAll() {
     $('#ddlBoardSize').val('');
     $('#ddlState').val('');

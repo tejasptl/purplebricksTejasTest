@@ -8,6 +8,10 @@ namespace PurpleBricksTejas.CodeLibrary
 {
     public class PathProviderXML
     {
+        /// <summary>
+        /// This is used to get Price XML File location for Test cases
+        /// </summary>
+        /// <returns></returns>
         public virtual string GetPathForTest()
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory
